@@ -17,28 +17,16 @@
 			</div>
 		</div>
 	</nav>
-	<div class="text-center"> <a class="btn btn-danger" href="New_Airline" role="button">New Airline</a> </div>
-	<div class="container-fluid mt-2">
-		<table class="table table-dark table-hover">
-			<tbody>
-				<tr>
-					<th scope="row">Name</th>
-					<td colspan="2">Country</td>
-					<td>Actions</td>
-				</tr>
-				<tr>
-					<th scope="row">Fast Air</th>
-					<td colspan="2">Italy</td>
-					<td class="text-center"> <a class="btn btn-warning" href="Airlines_edit" role="button">Edit</a> <a class="btn btn-danger" href="Airlines_delete" role="button">Delete</a> </td>>
-				</tr>
-				<tr>
-					<th scope="row">Tokyo Air</th>
-					<td colspan="2">Japan</td>
-					<td class="text-center"> <a class="btn btn-warning" href="Airlines_edit" role="button">Edit</a> <a class="btn btn-danger" href="Airlines_delete" role="button">Delete</a> </td>>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-</body>
-
+	<div class="text-center">
+		<h1>Let's edit Fast Air airline!</h1> </div>
+	<hr>
+	<div class="mb-3">
+		<label for="exampleFormControlInput1" class="form-label">Name</label>
+		<input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Fast Air"> </div>
+		<label for="exampleFormControlInput1" class="form-label"></label>
+		<input type="email" class="form-control" id="exampleFormControlInput1" placeholder=""> </div>
+	<br>
+	<a class="btn btn-success" href="#" role="button">Edit</a></body>
+	
+		
 </html>

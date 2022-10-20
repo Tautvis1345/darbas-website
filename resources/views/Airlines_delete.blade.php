@@ -17,28 +17,11 @@
 			</div>
 		</div>
 	</nav>
-	<div class="text-center"> <a class="btn btn-danger" href="New_Airline" role="button">New Airline</a> </div>
-	<div class="container-fluid mt-2">
-		<table class="table table-dark table-hover">
-			<tbody>
-				<tr>
-					<th scope="row">Name</th>
-					<td colspan="2">Country</td>
-					<td>Actions</td>
-				</tr>
-				<tr>
-					<th scope="row">Fast Air</th>
-					<td colspan="2">Italy</td>
-					<td class="text-center"> <a class="btn btn-warning" href="Airlines_edit" role="button">Edit</a> <a class="btn btn-danger" href="Airlines_delete" role="button">Delete</a> </td>>
-				</tr>
-				<tr>
-					<th scope="row">Tokyo Air</th>
-					<td colspan="2">Japan</td>
-					<td class="text-center"> <a class="btn btn-warning" href="Airlines_edit" role="button">Edit</a> <a class="btn btn-danger" href="Airlines_delete" role="button">Delete</a> </td>>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+	<div class="text-center">
+		<h1>Are you sure you want to delete Fast Air Airlines?</h1>
+		<h2>This action will remove all associations with airports</h2> </div>
+	<hr>
+	<div class="text-center"> <a class="btn btn-danger" href="#" role="button">Yes</a> <a class="btn btn-success" href="#" role="button">No</a> </div>
 </body>
 
 </html>

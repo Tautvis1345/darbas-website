@@ -44,6 +44,16 @@ Route::get('/Airlines', function () {
     return view('Airlines');
 });
 
+Route::get('/Airlines_edit', function () {
+    return view('Airlines_edit');
+});
+
+Route::get('/Airlines_delete', function () {
+    return view('Airlines_delete');
+});
+
+
+
 Route::get('/Countries', function () {
     return view('Countries');
 });

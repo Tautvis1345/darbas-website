@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAirlineRequest;
 use App\Http\Requests\UpdateAirlineRequest;
-use App\Models\Airline;
+use App\Models\Airlines;
 use App\Models\Country;
 use Iluminate\Support\Facades\Gate;
 
@@ -20,7 +20,7 @@ class AirlinesController extends Controller
 
     public function index()
     {
-        //$airline = Airline::paginate('6');
+        //$airlines = Airlines::paginate('6');
         $airlines = Airlines::all();
         
         return view('Airlines', compact('airlines'));
@@ -55,7 +55,7 @@ class AirlinesController extends Controller
             'country_id' => 'required',
         ]);
         
-            Airline::create([
+            Airlines::create([
                 'airline_name' =>request('airline_name'),
                 'country_name' =>request('country_name'),
                 'country_ISO' =>request('country_ISO'),
@@ -68,6 +68,44 @@ class AirlinesController extends Controller
         return redirect('/Airlines');
         }
 
+  /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Airlines  $airlines
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Airlines $airlines)
+    {
 
+        $country = Countries::All();
+        return view('Airlines_edit', compact('airlines', 'countries'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \App\Http\Requests\UpdateAirlineRequest  $request
+     * @param  \App\Models\Airlines  $airlines
+     * @return \Illuminate\Http\Response
+     */
+    public function update(UpdateAirlinesRequest $request, Airlines $airlines)
+    {
+        Airline::where('id', $airlines->id)->update($request->only(['airline_name', 'country_name', 'country_ISO']));
+        return redirect('/show_airlines');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Airlines  $airlines
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Airlines $airlines)
+    {
+
+        $airlines->delete();
+
+        return redirect('/show_airlines');
+    }
 
     }
