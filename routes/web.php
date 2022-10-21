@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SignupController;
 use App\Http\Controllers\AirlineController;
 use App\Http\Controllers\CountryController;
-use App\Http\Controllers\AirportConController;
+use App\Http\Controllers\AirportsController;
 use App\Http\Controllers\Admin\AdminAuthController;
 
 /*
@@ -24,16 +24,30 @@ use App\Http\Controllers\Admin\AdminAuthController;
 // });
 
 
-Route::get('/', function () {
-    return view('pagrindinis');
-});
+Route::get('/', [AirportsController::class,'index']);
 
-Route::get('/test', function () {
-    return view('test');
-});
+
+
+Route::get('/New_Airports', [AirportsController::class,'create']);
+
+Route::post('/Store_Airports', [AirportsController::class,'store']);
+
+Route::get('/Show_Airports', [AirportsController::class,'show']);
+
+Route::post('/Update_Airports', [AirportsController::class,'update']);
+
+Route::get('/Edit_Airports', [AirportsController::class,'edit']);
+
+Route::get('/Delete_Airports', [AirportsController::class,'destroy']);
+
+
+    
+
+
+
 
 Route::get('/oro_linijos', function () {
-    return view('oro_linijos');
+    return view('Airline.Airlines');
 });
 
 Route::get('/Airports', function () {
@@ -58,9 +72,6 @@ Route::get('/Countries', function () {
     return view('Countries');
 });
 
-Route::get('/New_Airports', function () {
-    return view('New_Airports');
-});
 
 Route::get('/Add_Airline', function () {
     return view('Add_Airline');

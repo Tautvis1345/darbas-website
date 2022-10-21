@@ -17,7 +17,10 @@ class CreateAirlinesTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string("name");
-            $table->foreignId('country_id')->constrained('countries');
+            $table->string("country_name");
+            
+
+            //$table->foreignId('country_id')->constrained('countries');
         });
     }
 

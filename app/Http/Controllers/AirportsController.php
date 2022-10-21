@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Country;
-use App\Models\AirportCon;
+use App\Models\Countries;
+use App\Models\Airports;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Gate;
-use App\Http\Requests\StoreAirportConRequest;
-use App\Http\Requests\UpdateAirportConRequest;
+use App\Http\Requests\StoreAirportsRequest;
+use App\Http\Requests\UpdateAirportsRequest;
 
-class AirportConController extends Controller
+class AirportsController extends Controller
 {
-    public function __construct(){
-        $this->middleware('auth', ['except'=>['index', 'search', 'show', 'showSingle']]);
-    }
+    // public function __construct(){
+    //     $this->middleware('auth', ['except'=>['index', 'search', 'show', 'showSingle']]);
+    // }
     /**
      * Display a listing of the resource.
      *
@@ -22,16 +22,16 @@ class AirportConController extends Controller
      */
     public function index()
     {
-        return redirect('Airports');
+        return redirect('/Airports');
     }
 
-    public function search(Country $request) {
+    public function search(Countries $request) {
 
-        $airportCon = AirportCon::paginate(15);
+        $Airports = Airports::paginate(15);
 
-        $country = Country::where('id', 'Like', '%'. request('country') . '%' )->get();
+        $country = Countries::where('id', 'Like', '%'. request('country') . '%' )->get();
 
-        return view('pages.airport.search_airport', compact('country', 'airportCon'));
+        return view('Airports.search_airport', compact('country', 'Airports'));
     }
     /**
      * Show the form for creating a new resource.
@@ -40,17 +40,17 @@ class AirportConController extends Controller
      */
     public function create()
     {
-        $country = Country::All();
-        return view('pages.airport.add_airport', compact('country'));
+        $country = Countries::All();
+        return view('Airports.New_Airports', compact('country'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreAirportConRequest  $request
+     * @param  \App\Http\Requests\StoreAirportsRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreAirportConRequest $request)
+    public function store(StoreAirportsRequest $request)
     {
         $fileName = NULL;
 
@@ -71,8 +71,8 @@ class AirportConController extends Controller
             $fileName = str_replace('public/', '', $path);
         }
 
-        if( Country::where('id', '=', request('country_id') )->exists() ){
-            AirportCon::create([
+        if( Countries::where('id', '=', request('country_id') )->exists() ){
+            Airports::create([
                 'airport_name' =>request('airport_name'),
                 'country_name' =>request('country_name'),
                 'country_ISO' =>request('country_ISO'),
@@ -84,7 +84,7 @@ class AirportConController extends Controller
 
             ]);
         }else{
-            return view('pages.denies');
+            return view('denies');
         }
 
         return redirect('/');
@@ -93,72 +93,73 @@ class AirportConController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\AirportCon  $airportCon
+     * @param  \App\Models\Airports  $Airports
      * @return \Illuminate\Http\Response
      */
-    public function show(AirportCon $airportCon)
+    public function show(Airports $Airports)
     {
-        $country = Country::paginate(6);
-        $airportCon = AirportCon::paginate(6);
+        $country = Countries::paginate(6);
+        $Airports = Airports::paginate(6);
 
-        return view('pages.airport.show_airport', compact('airportCon', 'country'));
+        return view('Airports.show_airport', compact('Airports', 'country'));
     }
 
-    public function showSingle(AirportCon $airportCon)
+    public function showSingle(Airports $Airports)
     {
-        return view('pages.airport.show_single_airport', compact('airportCon'));
+        return view('Airports.show_single_airport', compact('Airports'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\AirportCon  $airportCon
+     * @param  \App\Models\Airports  $Airports
      * @return \Illuminate\Http\Response
      */
-    public function edit(AirportCon $airportCon)
+    public function edit(Airports $Airports)
     {
-        $country = Country::All();
-        // if(Gate::denies('edit_airport', $airportCon)){
-        //     return view('pages.denies');
+        $country = Countries::All();
+        // if(Gate::denies('edit_airport', $Airports)){
+        //     return view('denies');
         // }
-        return view('pages.airport.edit_airport', compact('airportCon', 'country'));
+        return view('Airports.edit_airport', compact('Airports', 'country'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateAirportConRequest  $request
-     * @param  \App\Models\AirportCon  $airportCon
+     * @param  \App\Http\Requests\UpdateAirportsRequest  $request
+     * @param  \App\Models\Airports  $Airports
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAirportConRequest $request, AirportCon $airportCon)
+    public function update(UpdateAirportsRequest $request, Airports $Airports)
     {
-        if($airportCon->image){
-            File::delete(storage_path('app/public/'.$airportCon->image));
+        if($Airports->image){
+            File::delete(storage_path('app/public/'.$Airports->image));
         }
 
         if(request()->hasFile('image')){
             $path = $request->file('image')->store('public/images');
             $fileName = str_replace('public/', '', $path);
-            AirportCon::where('id', $airportCon->id)->update(['image'=>$fileName]);
+            Airports::where('id', $Airports->id)->update(['image'=>$fileName]);
         }
 
-        AirportCon::where('id', $airportCon->id)->update($request->only(['airport_name', 'country_name', 'country_ISO', 'latitude', 'longitude', 'country_id']));
+        Airports::where('id', $Airports->id)->update($request->only(['airport_name', 'country_name', 'country_ISO', 'latitude', 'longitude', 'country_id']));
         return redirect('/show_airport');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\AirportCon  $airportCon
+     * @param  \App\Models\Airports  $Airports
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AirportCon $airportCon)
+    public function destroy(Airports $Airports)
     {
-        // if(Gate::denies('delete_airport', $airportCon)){
-        //     return view('pages.denies');
+        // if(Gate::denies('delete_airport', $Airports)){
+        //     return view('denies');
         // }
-        $airportCon->delete();
+        $Airports->delete();
 
         return redirect('/');
     }
+}
