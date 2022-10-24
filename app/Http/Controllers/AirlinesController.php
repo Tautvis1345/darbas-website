@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAirlineRequest;
 use App\Http\Requests\UpdateAirlineRequest;
 use App\Models\Airlines;
-use App\Models\Country;
+use App\Models\Countries;
 use Iluminate\Support\Facades\Gate;
 
 
@@ -23,7 +23,7 @@ class AirlinesController extends Controller
         //$airlines = Airlines::paginate('6');
         $airlines = Airlines::all();
         
-        return view('Airlines', compact('airlines'));
+        return view('Airline.Airlines', compact('airlines'));
     }
      
     /**
@@ -46,7 +46,7 @@ class AirlinesController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function store(StoreAirlineRequest $request)
+     public function store(Request $request)
      {
         $validate = $request->validate([
             'airline_name' => 'required|max:100',
@@ -78,7 +78,7 @@ class AirlinesController extends Controller
     {
 
         $country = Countries::All();
-        return view('Airlines_edit', compact('airlines', 'countries'));
+        return view('Airlines_edit', compact('airlines', 'country'));
     }
 
     /**
@@ -88,7 +88,7 @@ class AirlinesController extends Controller
      * @param  \App\Models\Airlines  $airlines
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAirlinesRequest $request, Airlines $airlines)
+    public function update(Request $request, Airlines $airlines)
     {
         Airline::where('id', $airlines->id)->update($request->only(['airline_name', 'country_name', 'country_ISO']));
         return redirect('/show_airlines');

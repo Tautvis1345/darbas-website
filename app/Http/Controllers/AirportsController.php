@@ -22,9 +22,11 @@ class AirportsController extends Controller
      */
     public function index()
     {
+        return view('Airports.Airports');
+    }
+    public function redirect(){
         return redirect('/Airports');
     }
-
     public function search(Countries $request) {
 
         $Airports = Airports::paginate(15);
@@ -50,7 +52,7 @@ class AirportsController extends Controller
      * @param  \App\Http\Requests\StoreAirportsRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreAirportsRequest $request)
+    public function store(Request $request)
     {
         $fileName = NULL;
 
@@ -118,10 +120,8 @@ class AirportsController extends Controller
     public function edit(Airports $Airports)
     {
         $country = Countries::All();
-        // if(Gate::denies('edit_airport', $Airports)){
-        //     return view('denies');
-        // }
-        return view('Airports.edit_airport', compact('Airports', 'country'));
+        
+        return view('Airports.Edit', compact('Airports', 'country'));
     }
 
     /**
@@ -131,7 +131,7 @@ class AirportsController extends Controller
      * @param  \App\Models\Airports  $Airports
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAirportsRequest $request, Airports $Airports)
+    public function update(Request $request, Airports $Airports)
     {
         if($Airports->image){
             File::delete(storage_path('app/public/'.$Airports->image));
@@ -144,7 +144,7 @@ class AirportsController extends Controller
         }
 
         Airports::where('id', $Airports->id)->update($request->only(['airport_name', 'country_name', 'country_ISO', 'latitude', 'longitude', 'country_id']));
-        return redirect('/show_airport');
+        return redirect('/Airports');
     }
 
     /**
@@ -155,11 +155,9 @@ class AirportsController extends Controller
      */
     public function destroy(Airports $Airports)
     {
-        // if(Gate::denies('delete_airport', $Airports)){
-        //     return view('denies');
-        // }
+        
         $Airports->delete();
 
-        return redirect('/');
+        return redirect('/Airports');
     }
 }
