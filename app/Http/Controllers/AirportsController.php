@@ -103,7 +103,7 @@ class AirportsController extends Controller
         $country = Countries::paginate(6);
         $Airports = Airports::paginate(6);
 
-        return view('Airports.show_airport', compact('Airports', 'country'));
+        return view('Airports.Airports', compact('Airports', 'country'));
     }
 
     public function showSingle(Airports $Airports)

@@ -35,7 +35,7 @@ class AirlinesController extends Controller
      public function create()
      {
       
-        return view("New_Airline");
+        return view("Airline.New_Airline");
 
      }
     
@@ -65,7 +65,7 @@ class AirlinesController extends Controller
             ]);
         
         
-        return redirect('/Airlines');
+        return redirect('/Airline.Airlines');
         }
 
   /**
@@ -78,7 +78,7 @@ class AirlinesController extends Controller
     {
 
         $country = Countries::All();
-        return view('Airlines_edit', compact('airlines', 'country'));
+        return view('Airline.Airlines_edit', compact('airlines', 'country'));
     }
 
     /**
